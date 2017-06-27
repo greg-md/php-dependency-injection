@@ -48,7 +48,7 @@ $ioc->inject('foo', Foo::class);
 $ioc->inject('bar', new Bar());
 ```
 
-You can also inject in a more elegant way, using the object name as abstract.
+***You can also inject in a more elegant way, using the object name as abstract.***
 
 ```php
 $ioc->register(new Foo());
