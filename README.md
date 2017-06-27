@@ -30,7 +30,7 @@ that allows you to standardize and centralize the way objects are constructed in
 # How It Works
 
 All you need to start using the [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection) technique,
-is to instantiate an IoC Container and define objects in it.
+is to instantiate an IoC Container and inject objects in it.
 
 ```php
 $ioc = new \Greg\DependencyInjection\IoCContainer();
@@ -38,7 +38,7 @@ $ioc = new \Greg\DependencyInjection\IoCContainer();
 $ioc->inject('foo', Foo::class);
 ```
 
-### Defining the way your concretes will be instantiated
+### Customise the way your objects will be instantiated
 
 ```php
 $ioc->inject('redis.client', function() {
@@ -50,13 +50,13 @@ $ioc->inject('redis.client', function() {
 });
 ```
 
-### Defining concrete objects
+### Inject objects
 
 ```php
 $ioc->inject('foo', new Foo());
 ```
 
-You can also define in a more elegant way, using the object name as abstract.
+You can also inject in a more elegant way, using the object name as abstract.
 
 ```php
 $ioc->register(new Foo());
@@ -68,9 +68,9 @@ The previous example is equivalent with:
 $ioc->inject(Foo::class, new Foo());
 ```
 
-### Getting objects from Ioc Container
+### Get objects
 
-The next example will return null if the object is not defined in the IoC Container.
+The next example will return null if the object is not injected in the IoC Container.
 
 ```php
 $foo = $ioc->get('foo');
@@ -82,7 +82,7 @@ We can throw an exception if you want a parameter to be required in the IoC Cont
 $foo = $ioc->expect('foo');
 ```
 
-### Best Practice
+### Load class dependencies using IoC Container
 
 In a real application to take advantage of what's best from Dependency Injection technique,
 you may want to instantiate objects with dependencies from the IoC Container without defining them manually.
@@ -149,8 +149,25 @@ You can easily do it by defining those dependencies next after the class name in
 $foo = $ioc->load(Foo::class, new CustomBaz());
 ```
 
+Or, load with arguments as array.
+
+```php
+$ioc->loadArgs([$someObject, 'method'], ...[new CustomBaz()]);
+```
+
 The previous example will instantiate `BarStrategy` from the IoC Container, which is `Bar` class
 and for `BazStrategy` it will set the `CustomBaz` defined in the `load` method.
+
+### Call callable objects using IoC Container
+
+You can call a callable with arguments injected in the Ioc Container
+the same way as [loading class dependencies](#load-class-dependencies-using-ioc-container).
+
+```php
+$ioc->call(function(int $foo, Bar $bar) {
+    // $bar will be injected from the Ioc Container.
+}, 10);
+```
 
 ### Autoload Classes
 
@@ -162,16 +179,6 @@ $ioc->addPrefixes('Foo\\');
 $ioc->addSuffixes('Controller');
 
 $bar = $ioc->get(\Foo\BarController::class);
-```
-
-### Call using IoC Container
-
-You can all call a callable with arguments defined in the Ioc Container.
-
-```php
-$ioc->call(function(Foo $foo) {
-    // $foo will be injected from the Ioc Container.
-});
 ```
 
 # License
