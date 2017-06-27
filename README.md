@@ -58,6 +58,18 @@ $ioc->inject('redis.client', function() {
 $ioc->inject('foo', new Foo());
 ```
 
+You can also define in a more elegant way, using the object name as abstract.
+
+```php
+$ioc->register(new Foo());
+```
+
+The previous example is equivalent with:
+
+```php
+$ioc->inject(Foo::class, new Foo());
+```
+
 ### Best Practice
 
 In a real application to take advantage of what's best from Dependency Injection technique,
