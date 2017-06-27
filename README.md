@@ -176,7 +176,7 @@ $ioc->call(function(int $foo, Bar $bar) {
 }, 10);
 ```
 
-Or call using arguments.
+You can also call a callable using arguments as array.
 
 ```php
 $ioc->callArgs([$someObj, 'someMethod'], ...$arguments);
