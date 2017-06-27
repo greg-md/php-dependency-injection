@@ -191,7 +191,7 @@ $ioc->addPrefixes('Foo\\');
 
 $ioc->addSuffixes('Controller');
 
-$bar = $ioc->get(\Foo\BarController::class);
+$controller = $ioc->get(\Foo\BarController::class);
 ```
 
 # License
