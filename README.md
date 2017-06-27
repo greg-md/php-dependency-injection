@@ -15,7 +15,12 @@ that allows you to standardize and centralize the way objects are constructed in
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [How It Works](#how-it-works)
-* [Best Practice](#best-practice)
+    * [Customise the way your objects will be instantiated](#customise-the-way-your-objects-will-be-instantiated)
+    * [Inject objects](#inject-objects)
+    * [Get objects](#get-objects)
+    * [Load class dependencies using IoC Container](#load-class-dependencies-using-ioc-container)
+    * [Call callable objects using IoC Container](#call-callable-objects-using-ioc-container)
+    * [Autoload Classes](#autoload-classes)
 * [License](#license)
 * [Huuuge Quote](#huuuge-quote)
 
