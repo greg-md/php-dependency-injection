@@ -122,10 +122,6 @@ $ioc->inject(BazStrategy::class, function() {
 You can easily do it by defining those dependencies next after the class name in `load` method.
 
 ```php
-class CustomBaz implements BazStrategy
-{
-}
-
 $foo = $ioc->load(Foo::class, new CustomBaz());
 ```
 
