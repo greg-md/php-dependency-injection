@@ -15,12 +15,11 @@ that allows you to standardize and centralize the way objects are constructed in
 * [Requirements](#requirements)
 * [Installation](#installation)
 * [How It Works](#how-it-works)
-    * [Customise the way your objects will be instantiated](#customise-the-way-your-objects-will-be-instantiated)
-    * [Inject objects](#inject-objects)
-    * [Get objects](#get-objects)
-    * [Load class dependencies using IoC Container](#load-class-dependencies-using-ioc-container)
-    * [Call callable objects using IoC Container](#call-callable-objects-using-ioc-container)
-    * [Autoload Classes](#autoload-classes)
+    * [Inject](#inject)
+    * [Get](#get)
+    * [Load](#load)
+    * [Call](#call)
+    * [Autoload](#autoload)
 * [License](#license)
 * [Huuuge Quote](#huuuge-quote)
 
@@ -39,26 +38,14 @@ is to instantiate an IoC Container and inject objects in it.
 
 ```php
 $ioc = new \Greg\DependencyInjection\IoCContainer();
+```
 
+### Inject
+
+```php
 $ioc->inject('foo', Foo::class);
-```
 
-### Customise the way your objects will be instantiated
-
-```php
-$ioc->inject('redis.client', function() {
-    $redis = new \Redis();
-
-    $redis->connect();
-
-    return $redis;
-});
-```
-
-### Inject objects
-
-```php
-$ioc->inject('foo', new Foo());
+$ioc->inject('bar', new Bar());
 ```
 
 You can also inject in a more elegant way, using the object name as abstract.
@@ -73,7 +60,19 @@ The previous example is equivalent with:
 $ioc->inject(Foo::class, new Foo());
 ```
 
-### Get objects
+***Customise the way your objects will be instantiated***
+
+```php
+$ioc->inject('redis.client', function() {
+    $redis = new \Redis();
+
+    $redis->connect();
+
+    return $redis;
+});
+```
+
+### Get
 
 The next example will return null if the object is not injected in the IoC Container.
 
@@ -81,13 +80,13 @@ The next example will return null if the object is not injected in the IoC Conta
 $foo = $ioc->get('foo');
 ```
 
-We can throw an exception if you want a parameter to be required in the IoC Container using the `expect` method.
+The next example will throw an exception if parameter is not injected in the IoC Container.
 
 ```php
 $foo = $ioc->expect('foo');
 ```
 
-### Load class dependencies using IoC Container
+### Load
 
 In a real application to take advantage of what's best from Dependency Injection technique,
 you may want to instantiate objects with dependencies from the IoC Container without defining them manually.
@@ -163,10 +162,10 @@ $ioc->loadArgs([$someObject, 'method'], ...[new CustomBaz()]);
 The previous example will instantiate `BarStrategy` from the IoC Container, which is `Bar` class
 and for `BazStrategy` it will set the `CustomBaz` defined in the `load` method.
 
-### Call callable objects using IoC Container
+### Call
 
 You can call a callable with arguments injected in the Ioc Container
-the same way as [loading class dependencies](#load-class-dependencies-using-ioc-container).
+the same way as [loading classes](#load).
 
 ```php
 $ioc->call(function(int $foo, Bar $bar) {
@@ -174,7 +173,13 @@ $ioc->call(function(int $foo, Bar $bar) {
 }, 10);
 ```
 
-### Autoload Classes
+Or call using arguments.
+
+```php
+$ioc->callArgs([$someObj, 'someMethod'], ...$arguments);
+```
+
+### Autoload
 
 You can autoload some classes by defining their prefixes/suffixes as abstracts.
 
