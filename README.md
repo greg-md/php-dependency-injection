@@ -30,7 +30,7 @@ that allows you to standardize and centralize the way objects are constructed in
 # How It Works
 
 All you need to start using the [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection) technique,
-is to instantiate an IoC and define objects in it.
+is to instantiate an IoC Container and define objects in it.
 
 ```php
 $ioc = new \Greg\DependencyInjection\IoCContainer();
