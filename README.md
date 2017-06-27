@@ -17,6 +17,7 @@ that allows you to standardize and centralize the way objects are constructed in
 * [How It Works](#how-it-works)
     * [Inject](#inject)
     * [Get](#get)
+    * [Expect](#expect)
     * [Load](#load)
     * [Call](#call)
     * [Autoload](#autoload)
@@ -60,7 +61,7 @@ The previous example is equivalent with:
 $ioc->inject(Foo::class, new Foo());
 ```
 
-**Customise the way your objects will be instantiated**
+**Customise the way your objects will be instantiated.**
 
 ```php
 $ioc->inject('redis.client', function() {
@@ -79,6 +80,8 @@ The next example will return null if the object is not injected in the IoC Conta
 ```php
 $foo = $ioc->get('foo');
 ```
+
+### Expect
 
 The next example will throw an exception if parameter is not injected in the IoC Container.
 
