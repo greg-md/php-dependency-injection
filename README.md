@@ -64,7 +64,7 @@ In a real application to take advantage of what's best from Dependency Injection
 you may want to instantiate objects with dependencies from the IoC Container without defining them manually.
 The best way to do that is to inject objects with it's names or it's strategies names as abstracts.
 
-Let say we have the `Foo` class that requires `Bar` strategy.
+Let say we have the `Foo` class that requires a `BarStrategy` class.
 
 ```php
 class Foo
@@ -80,7 +80,7 @@ class Foo
 
 What we do is inject the `BarStrategy` into the IoC Container and load the `Foo` class from it.
 
-> `BarStrategy` in this example is an `interface`,
+> `BarStrategy` is an `interface`,
 > so, we don't break the [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) principles.
 
 ```php
