@@ -36,8 +36,6 @@ is to instantiate an IoC Container and define objects in it.
 $ioc = new \Greg\DependencyInjection\IoCContainer();
 
 $ioc->inject('foo', Foo::class);
-
-$foo = $ioc->get('foo');
 ```
 
 ### Defining the way your concretes will be instantiated
@@ -68,6 +66,20 @@ The previous example is equivalent with:
 
 ```php
 $ioc->inject(Foo::class, new Foo());
+```
+
+### Getting objects from Ioc Container
+
+The next example will return null if the object is not defined in the IoC Container.
+
+```php
+$foo = $ioc->get('foo');
+```
+
+We can throw an exception if you want a parameter to be required in the IoC Container using the `expect` method.
+
+```php
+$foo = $ioc->expect('foo');
 ```
 
 ### Best Practice
@@ -139,6 +151,16 @@ $foo = $ioc->load(Foo::class, new CustomBaz());
 
 The previous example will instantiate `BarStrategy` from the IoC Container, which is `Bar` class
 and for `BazStrategy` it will set the `CustomBaz` defined in the `load` method.
+
+### Autoload Classes
+
+You can autoload some classes by defining their prefixes/suffixes as abstracts.
+
+```php
+$ioc->addPrefixes('Foo\\');
+
+$bar = $ioc->get(\Foo\Bar::class);
+```
 
 # License
 

@@ -3,18 +3,23 @@
 namespace Greg\DependencyInjection;
 
 use Greg\Support\Obj;
+use Greg\Support\Str;
 
 class IoCContainer
 {
     private $prefixes = [];
 
+    private $suffixes = [];
+
     private $storage = [];
 
     private $concrete = [];
 
-    public function __construct(array $prefixes = [])
+    public function __construct(array $prefixes = [], array $suffixes = [])
     {
         $this->setPrefixes($prefixes);
+
+        $this->setSuffixes($suffixes);
 
         return $this;
     }
@@ -42,6 +47,33 @@ class IoCContainer
         }
 
         $this->fixPrefixes();
+
+        return $this;
+    }
+
+    public function setSuffixes(array $suffixes)
+    {
+        $this->suffixes = $suffixes;
+
+        $this->fixSuffixes();
+
+        return $this;
+    }
+
+    public function getSuffixes()
+    {
+        return $this->suffixes;
+    }
+
+    public function addSuffixes(string $suffix, string ...$suffixes)
+    {
+        $this->suffixes[] = $suffix;
+
+        if ($suffixes) {
+            $this->suffixes = array_merge($this->suffixes, $suffixes);
+        }
+
+        $this->fixSuffixes();
 
         return $this;
     }
@@ -88,7 +120,7 @@ class IoCContainer
                 } else {
                     $this->concrete[$abstract] = $this->load($concrete['loader'], ...$concrete['arguments']);
                 }
-            } elseif ($this->prefixIsRegistered($abstract)) {
+            } elseif ($this->prefixIsRegistered($abstract) or $this->suffixIsRegistered($abstract)) {
                 $this->concrete[$abstract] = $this->load($abstract);
             }
         }
@@ -148,7 +180,18 @@ class IoCContainer
     private function prefixIsRegistered($className): bool
     {
         foreach ($this->prefixes as $prefix) {
-            if (strpos($className, $prefix) === 0) {
+            if (Str::startsWith($className, $prefix)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function suffixIsRegistered($className): bool
+    {
+        foreach ($this->suffixes as $prefix) {
+            if (Str::endsWith($className, $prefix)) {
                 return true;
             }
         }
@@ -157,6 +200,13 @@ class IoCContainer
     }
 
     private function fixPrefixes()
+    {
+        $this->prefixes = array_unique($this->prefixes);
+
+        return $this;
+    }
+
+    private function fixSuffixes()
     {
         $this->prefixes = array_unique($this->prefixes);
 
