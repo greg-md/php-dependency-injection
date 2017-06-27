@@ -48,7 +48,7 @@ $ioc->inject('foo', Foo::class);
 $ioc->inject('bar', new Bar());
 ```
 
-***You can also inject in a more elegant way, using the object name as abstract.***
+**You can also inject in a more elegant way, using the object name as abstract.**
 
 ```php
 $ioc->register(new Foo());
@@ -60,7 +60,7 @@ The previous example is equivalent with:
 $ioc->inject(Foo::class, new Foo());
 ```
 
-***Customise the way your objects will be instantiated***
+**Customise the way your objects will be instantiated**
 
 ```php
 $ioc->inject('redis.client', function() {
