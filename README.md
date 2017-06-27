@@ -159,7 +159,7 @@ $foo = $ioc->load(Foo::class, new CustomBaz());
 Or, load with arguments as array.
 
 ```php
-$ioc->loadArgs([$someObject, 'method'], ...[new CustomBaz()]);
+$ioc->loadArgs(Foo::class, ...[new CustomBaz()]);
 ```
 
 The previous example will instantiate `BarStrategy` from the IoC Container, which is `Bar` class
