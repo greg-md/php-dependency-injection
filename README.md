@@ -159,7 +159,19 @@ You can autoload some classes by defining their prefixes/suffixes as abstracts.
 ```php
 $ioc->addPrefixes('Foo\\');
 
-$bar = $ioc->get(\Foo\Bar::class);
+$ioc->addSuffixes('Controller');
+
+$bar = $ioc->get(\Foo\BarController::class);
+```
+
+### Call using IoC Container
+
+You can all call a callable with arguments defined in the Ioc Container.
+
+```php
+$ioc->call(function(Foo $foo) {
+    // $foo will be injected from the Ioc Container.
+});
 ```
 
 # License
