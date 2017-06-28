@@ -153,7 +153,9 @@ $ioc->inject(BazStrategy::class, function() {
 You can easily do it by defining those dependencies next after the class name in `load` method.
 
 ```php
-$foo = $ioc->load(Foo::class, new CustomBaz());
+$customBaz = new CustomBaz();
+
+$foo = $ioc->load(Foo::class, $customBaz);
 ```
 
 The previous example will instantiate `BarStrategy` from the IoC Container, which is `Bar` class
@@ -162,7 +164,7 @@ and for `BazStrategy` it will set the `CustomBaz` defined in the `load` method.
 You can also load with arguments as array.
 
 ```php
-$ioc->loadArgs(Foo::class, ...[new CustomBaz()]);
+$ioc->loadArgs(Foo::class, [new CustomBaz()]);
 ```
 
 ### Call
