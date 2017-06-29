@@ -1,7 +1,7 @@
 {
   "name": "greg-md/php-dependency-injection",
   "type": "library",
-  "description": "Greg PHP Dependency Injection",
+  "description": "Dependency Injection technique for PHP.",
   "keywords": [ "greg-md", "greg-php", "php-dependency-injection", "greg-dependency-injection", "dependency-injection", "php", "web-artisans" ],
   "homepage": "https://github.com/greg-md/php-dependency-injection",
   "license": "MIT",
