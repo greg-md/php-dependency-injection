@@ -7,7 +7,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/greg-md/php-dependency-injection/v/unstable.svg)](https://packagist.org/packages/greg-md/php-dependency-injection)
 [![License](https://poser.pugx.org/greg-md/php-dependency-injection/license.svg)](https://packagist.org/packages/greg-md/php-dependency-injection)
 
-Greg Dependency Injection provides you a lightweight, but powerful IoC Container
+Dependency Injection provides a lightweight, but powerful IoC Container
 that allows you to standardize and centralize the way objects are constructed in your application.
 
 # Table of Contents
