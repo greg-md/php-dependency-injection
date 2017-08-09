@@ -15,6 +15,8 @@ class IoCContainer
 
     private $concrete = [];
 
+//    private $aliases = [];
+
     public function __construct(array $prefixes = [], array $suffixes = [])
     {
         $this->setPrefixes($prefixes);
@@ -99,6 +101,10 @@ class IoCContainer
             throw new \Exception('Unknown concrete type for abstract `' . $abstract . '`.');
         }
 
+//        if (class_exists($abstract) and $abstractAliases = Obj::typeAliases($abstract, false)) {
+//            $this->aliases = array_merge($this->aliases, array_fill_keys($abstractAliases, $abstract));
+//        }
+
         return $this;
     }
 
@@ -111,7 +117,15 @@ class IoCContainer
         return $this->inject(get_class($object), $object);
     }
 
-    public function get($abstract)
+    public function has(string $abstract)
+    {
+        return array_key_exists($abstract, $this->concrete)
+            or array_key_exists($abstract, $this->storage)
+            or $this->prefixIsRegistered($abstract)
+            or $this->suffixIsRegistered($abstract);
+    }
+
+    public function get(string $abstract)
     {
         if (!array_key_exists($abstract, $this->concrete)) {
             if ($concrete = $this->storage[$abstract] ?? null) {
@@ -128,7 +142,7 @@ class IoCContainer
         return $this->concrete[$abstract] ?? null;
     }
 
-    public function expect($abstract)
+    public function expect(string $abstract)
     {
         if (!$concrete = $this->get($abstract)) {
             throw new \Exception('`' . $abstract . '` is not registered in IoC Container.');
