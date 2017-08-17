@@ -15,7 +15,7 @@ class IoCContainer
 
     private $concrete = [];
 
-//    private $aliases = [];
+    //    private $aliases = [];
 
     public function __construct(array $prefixes = [], array $suffixes = [])
     {
@@ -101,9 +101,9 @@ class IoCContainer
             throw new \Exception('Unknown concrete type for abstract `' . $abstract . '`.');
         }
 
-//        if (class_exists($abstract) and $abstractAliases = Obj::typeAliases($abstract, false)) {
-//            $this->aliases = array_merge($this->aliases, array_fill_keys($abstractAliases, $abstract));
-//        }
+        //        if (class_exists($abstract) and $abstractAliases = Obj::typeAliases($abstract, false)) {
+        //            $this->aliases = array_merge($this->aliases, array_fill_keys($abstractAliases, $abstract));
+        //        }
 
         return $this;
     }
